@@ -4,7 +4,7 @@ COPY ./ /home/www/project
 WORKDIR /home/www/project
 RUN rm package-lock.json && yarn && npm run production && rm -fr node_modules
 
-# PHP Builder
+# Project Image
 FROM php:7.3-apache-stretch
 COPY --from=node-builder /home/www/project /var/www/app
 COPY default.conf /etc/apache2/sites-enabled/000-default.conf

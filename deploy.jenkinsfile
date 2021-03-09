@@ -1,0 +1,18 @@
+def where = ''
+pipeline {
+    agent any
+    stages {
+        stage('where') {
+            steps {
+                script {
+                    where = input(message: 'Please select where to deploy', parameters: [choice(name: 'srv', choices: ['dev', 'qa', 'prod'], description: '')])
+                }
+            }
+        }
+        stage('deployment') {
+            steps {
+                build job: 'K8S_CD', parameters: [string(name: 'server', value: where), string(name: 'image', value: 'ralphmujar/laravel:'+env.GIT_COMMIT)]
+            }
+        }
+    }
+}
