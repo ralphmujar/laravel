@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  web:
+    container_name: sampleapp
+    build:
+      context: ./src/front
+    ports:
+      - 9000:80
+    volumes:
+      - ./src/front:/var/www/app
