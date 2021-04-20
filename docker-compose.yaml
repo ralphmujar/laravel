@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  web:
+    container_name: sampleapp_web
+    build:
+      context: ./src/front
+    ports:
+      - 9000:80
+    volumes:
+      - ./src/front:/var/www/app
+    depends_on: 
+      - db
+  db:
+    container_name: sampleapp_db
+    image: mysql:5.7
+    ports: 
+      - 3306:3306
+    restart: always
+    volumes:
+      - ./src/front/mysqldata:/var/lib/mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: root
